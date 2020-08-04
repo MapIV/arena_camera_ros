@@ -34,7 +34,7 @@ camera_info_url: ""
 #  The desired publisher frame rate if listening to the topics.
 #  This parameter can only be set once at startup
 #  Calling the GrabImages-Action can result in a higher framerate
-frame_rate: 60.0
+frame_rate: -1 #trigger_mode: "On" = -1
 
 #  Mode of camera's shutter.
 #  The supported modes are "rolling", "global" and "global_reset"
