@@ -67,6 +67,12 @@ ArenaCameraParameter::ArenaCameraParameter()
   , inter_pkg_delay_(1000)
   , shutter_mode_(SM_DEFAULT)
   , auto_flash_(false)
+  ,
+  // #########################
+  ptp_enable_(true)
+  , trigger_mode_("Off")
+  , trigger_source_("Software")
+  , trigger_selector_("FrameStart")
 {
 }
 
@@ -246,6 +252,13 @@ void ArenaCameraParameter::readFromRosParameterServer(const ros::NodeHandle& nh)
   nh.param<bool>("auto_flash_line_3", auto_flash_line_3_, true);
 
   ROS_WARN("Autoflash: %i, line2: %i , line3: %i ", auto_flash_, auto_flash_line_2_, auto_flash_line_3_);
+
+  nh.param<bool>("ptp_enable", ptp_enable_, true);
+
+  nh.param<std::string>("trigger_mode", trigger_mode_, "Off");
+  nh.param<std::string>("trigger_source", trigger_source_, "Software");
+  nh.param<std::string>("trigger_selector", trigger_selector_, "FrameStart");
+
   validateParameterSet(nh);
   return;
 }
@@ -362,6 +375,26 @@ void ArenaCameraParameter::setCameraInfoURL(const ros::NodeHandle& nh, const std
 {
   camera_info_url_ = camera_info_url;
   nh.setParam("camera_info_url", camera_info_url_);
+}
+
+const bool& ArenaCameraParameter::ptpEnable() const
+{
+  return ptp_enable_;
+}
+
+const std::string& ArenaCameraParameter::triggerMode() const
+{
+  return trigger_mode_;
+}
+
+const std::string& ArenaCameraParameter::triggerSource() const
+{
+  return trigger_source_;
+}
+
+const std::string& ArenaCameraParameter::triggerSelector() const
+{
+  return trigger_selector_;
 }
 
 }  // namespace arena_camera

@@ -2,7 +2,7 @@
 # USED BY the package .launch files
 
 #  The tf frame under which the images were published
-camera_frame: arena_camera
+camera_frame: "arena_camera"
 
 #  The DeviceUserID of the camera. If empty, the first camera found in the
 #  device list will be used
@@ -34,7 +34,7 @@ camera_info_url: ""
 #  The desired publisher frame rate if listening to the topics.
 #  This parameter can only be set once at startup
 #  Calling the GrabImages-Action can result in a higher framerate
-frame_rate: 5.0
+frame_rate: 60.0
 
 #  Mode of camera's shutter.
 #  The supported modes are "rolling", "global" and "global_reset"
@@ -119,3 +119,10 @@ gain_auto: true
 #  For cameras used on a RaspberryPI this value should be set to 11772.
 # gige:
 #  inter_pkg_delay: 1000
+
+ptp_enable: true
+
+# GPIO Red Line1,Brown Line2,Orange Line3,Purple Line4,Black Line5,Blue Line6,Yellow Line7,Green Line8
+trigger_mode: "On"
+trigger_source: "Line2"
+trigger_selector: "FrameStart"

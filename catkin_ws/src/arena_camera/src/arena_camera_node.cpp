@@ -49,6 +49,8 @@ Arena::IImage* pImage_ = nullptr;
 const uint8_t* pData_ = nullptr;
 GenApi::INodeMap* pNodeMap_ = nullptr;
 
+bool ptpReady = false;
+
 using sensor_msgs::CameraInfo;
 using sensor_msgs::CameraInfoPtr;
 
@@ -377,12 +379,19 @@ bool ArenaCameraNode::startGrabbing()
   {
     setImageEncoding(arena_camera_parameter_set_.imageEncoding());
 
+    Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerMode", arena_camera_parameter_set_.triggerMode().c_str());
+    Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerSource", arena_camera_parameter_set_.triggerSource().c_str());
+    Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),"TriggerSelector",arena_camera_parameter_set_.triggerSelector().c_str());
+
     GenApi::CStringPtr pTriggerMode = pDevice_->GetNodeMap()->GetNode("TriggerMode");
+
+    /*
     if (GenApi::IsWritable(pTriggerMode))
     {
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerMode", "On");
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerSource", "Software");
     }
+    */
 
     //
     // // Initial setting of the CameraInfo-msg, assuming no calibration given
@@ -488,6 +497,9 @@ bool ArenaCameraNode::startGrabbing()
     pDevice_->StartStream();
     bool isTriggerArmed = false;
 
+    Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(),"PtpEnable",arena_camera_parameter_set_.ptpEnable());
+
+/*
     if (GenApi::IsWritable(pTriggerMode))
     {
       do
@@ -496,6 +508,7 @@ bool ArenaCameraNode::startGrabbing()
       } while (isTriggerArmed == false);
       Arena::ExecuteNode(pDevice_->GetNodeMap(), "TriggerSoftware");
     }
+*/
 
     pImage_ = pDevice_->GetImage(5000);
     pData_ = pImage_->GetData();
@@ -678,6 +691,7 @@ bool ArenaCameraNode::grabImage()
   boost::lock_guard<boost::recursive_mutex> lock(grab_mutex_);
   try
   {
+    /*
     GenApi::CStringPtr pTriggerMode = pDevice_->GetNodeMap()->GetNode("TriggerMode");
     if (GenApi::IsWritable(pTriggerMode))
     {
@@ -689,13 +703,25 @@ bool ArenaCameraNode::grabImage()
       } while (isTriggerArmed == false);
       Arena::ExecuteNode(pDevice_->GetNodeMap(), "TriggerSoftware");
     }
+    */
+
     pImage_ = pDevice_->GetImage(5000);
     pData_ = pImage_->GetData();
 
     img_raw_msg_.data.resize(img_raw_msg_.height * img_raw_msg_.step);
     memcpy(&img_raw_msg_.data[0], pImage_->GetData(), img_raw_msg_.height * img_raw_msg_.step);
 
-    img_raw_msg_.header.stamp = ros::Time::now();
+    if(Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave"){
+      ptpReady = true;
+    }
+
+    if(ptpReady == true && (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave" || Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Uncalibrated")){
+      img_raw_msg_.header.stamp.sec = pImage_->GetTimestampNs()/1000000000;
+      img_raw_msg_.header.stamp.nsec = pImage_->GetTimestampNs()%1000000000;
+    }
+    else{
+      img_raw_msg_.header.stamp = ros::Time::now();
+    }
 
     pDevice_->RequeueBuffer(pImage_);
     return true;
@@ -912,7 +938,18 @@ ArenaCameraNode::grabImagesRaw(const camera_control_msgs::GrabImagesGoal::ConstP
     // imagePixelDepth already contains the number of channels
     img_raw_msg_.step = img_raw_msg_.width * (pImage_->GetBitsPerPixel() / 8);
 
-    img.header.stamp = ros::Time::now();
+    if(Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave"){
+      ptpReady = true;
+    }
+
+    if(ptpReady == true && (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave" || Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Uncalibrated")){
+      img_raw_msg_.header.stamp.sec = pImage_->GetTimestampNs()/1000000000;
+      img_raw_msg_.header.stamp.nsec = pImage_->GetTimestampNs()%1000000000;
+    }
+    else{
+      img_raw_msg_.header.stamp = ros::Time::now();
+    }
+
     img.header.frame_id = cameraFrame();
     feedback.curr_nr_images_taken = i + 1;
 
@@ -985,6 +1022,26 @@ uint32_t ArenaCameraNode::getNumSubscribersRect() const
 uint32_t ArenaCameraNode::getNumSubscribers() const
 {
   return img_raw_pub_.getNumSubscribers() + img_rect_pub_->getNumSubscribers();
+}
+
+const bool& ArenaCameraNode::ptpEnable() const
+{
+  return arena_camera_parameter_set_.ptpEnable();
+}
+
+const std::string& ArenaCameraNode::triggerMode() const
+{
+  return arena_camera_parameter_set_.triggerMode();
+}
+
+const std::string& ArenaCameraNode::triggerSource() const
+{
+  return arena_camera_parameter_set_.triggerSource();
+}
+
+const std::string& ArenaCameraNode::triggerSelector() const
+{
+  return arena_camera_parameter_set_.triggerSelector();
 }
 
 void ArenaCameraNode::setupInitialCameraInfo(sensor_msgs::CameraInfo& cam_info_msg)

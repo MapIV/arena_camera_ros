@@ -95,6 +95,12 @@ public:
   */
   const std::string& cameraFrame() const;
 
+  const bool& ptpEnable() const;
+
+  const std::string& triggerMode() const;
+  const std::string& triggerSource() const;
+  const std::string& triggerSelector() const;
+
 protected:
   /**
   * Creates the camera instance and starts the services and action servers.
@@ -317,7 +323,7 @@ protected:
   * @param goal the goal
   */
   void grabImagesRectActionExecuteCB(const camera_control_msgs::GrabImagesGoal::ConstPtr& goal);
-  
+
   /**
   * This function can also be called from the derived ArenaCameraOpenCV-Class
   */

@@ -110,6 +110,12 @@ public:
    */
   void setCameraInfoURL(const ros::NodeHandle& nh, const std::string& camera_info_url);
 
+  const bool& ptpEnable() const;
+
+  const std::string& triggerMode() const;
+  const std::string& triggerSource() const;
+  const std::string& triggerSelector() const;
+
 public:
   /** Binning factor to get downsampled images. It refers here to any camera
    * setting which combines rectangular neighborhoods of pixels into larger
@@ -328,6 +334,13 @@ protected:
    * 'bayer_gbrg8', 'bayer_rggb8' and 'yuv422'
    */
   std::string image_encoding_;
+
+  bool ptp_enable_;
+
+  std::string trigger_mode_;
+  std::string trigger_source_;
+  std::string trigger_selector_;
+
 };
 
 }  // namespace arena_camera
