@@ -36,160 +36,160 @@
 
 namespace arena_camera
 {
-enum SHUTTER_MODE
-{
-  SM_ROLLING = 0,
-  SM_GLOBAL = 1,
-  SM_GLOBAL_RESET_RELEASE = 2,
-  SM_DEFAULT = -1,
-};
-
-/**
-*Parameter class for the ArenaCamera
-*/
-class ArenaCameraParameter
-{
-public:
-  ArenaCameraParameter();
-
-  virtual ~ArenaCameraParameter();
+  enum SHUTTER_MODE
+  {
+    SM_ROLLING = 0,
+    SM_GLOBAL = 1,
+    SM_GLOBAL_RESET_RELEASE = 2,
+    SM_DEFAULT = -1,
+  };
 
   /**
+*Parameter class for the ArenaCamera
+*/
+  class ArenaCameraParameter
+  {
+  public:
+    ArenaCameraParameter();
+
+    virtual ~ArenaCameraParameter();
+
+    /**
    * Read the parameters from the parameter server.
    * If invalid parameters can be detected, the interface will reset them
    * to the default values.
    * @param nh the ros::NodeHandle to use
    */
-  void readFromRosParameterServer(const ros::NodeHandle& nh);
+    void readFromRosParameterServer(const ros::NodeHandle &nh);
 
-  /**
+    /**
    * Getter for the device_user_id_ set from ros-parameter server
    */
-  const std::string& deviceUserID() const;
+    const std::string &deviceUserID() const;
 
-  /**
+    /**
    * Setter for the device_user_id_  to the class and as well
    * the ros-parameter server
    */
-  void adaptDeviceUserId(const ros::NodeHandle& nh, const std::string& device_user_id);
+    void adaptDeviceUserId(const ros::NodeHandle &nh, const std::string &device_user_id);
 
-  /**
+    /**
    * Getter for the string describing the shutter mode
    */
-  std::string shutterModeString() const;
+    std::string shutterModeString() const;
 
-  /**
+    /**
    * Getter for the camera_frame_ set from ros-parameter server
    */
-  const std::string& cameraFrame() const;
+    const std::string &cameraFrame() const;
 
-  /**
+    /**
    * Getter for the frame_rate_ read from ros-parameter server
    */
-  const double& frameRate() const;
+    const double &frameRate() const;
 
-  /**
+    /**
    * Getter for the image_encoding_ read from ros-parameter server
    */
-  const std::string& imageEncoding() const;
+    const std::string &imageEncoding() const;
 
-  /**
+    /**
    * Setter for the frame_rate_ initially set from ros-parameter server
    * The frame rate needs to be updated with the value the camera supports
    */
-  void setFrameRate(const ros::NodeHandle& nh, const double& frame_rate);
+    void setFrameRate(const ros::NodeHandle &nh, const double &frame_rate);
 
-  /**
+    /**
    * Getter for the camera_info_url set from ros-parameter server
    */
-  const std::string& cameraInfoURL() const;
+    const std::string &cameraInfoURL() const;
 
-  /**
+    /**
    * Setter for the camera_info_url_ if a new CameraInfo-Msgs Object is
    * provided via the SetCameraInfo-service from the CameraInfoManager
    */
-  void setCameraInfoURL(const ros::NodeHandle& nh, const std::string& camera_info_url);
+    void setCameraInfoURL(const ros::NodeHandle &nh, const std::string &camera_info_url);
 
-  const bool& ptpEnable() const;
+    const bool &ptpEnable() const;
 
-  const std::string& triggerMode() const;
-  const std::string& triggerSource() const;
-  const std::string& triggerSelector() const;
+    const std::string &triggerMode() const;
+    const std::string &triggerSource() const;
+    const std::string &triggerSelector() const;
 
-public:
-  /** Binning factor to get downsampled images. It refers here to any camera
+  public:
+    /** Binning factor to get downsampled images. It refers here to any camera
    * setting which combines rectangular neighborhoods of pixels into larger
    * "super-pixels." It reduces the resolution of the output image to
    * (width / binning_x) x (height / binning_y).
    * The default values binning_x = binning_y = 0 are considered the same
    * as binning_x = binning_y = 1 (no subsampling).
    */
-  size_t binning_x_;
-  size_t binning_y_;
+    size_t binning_x_;
+    size_t binning_y_;
 
-  /**
+    /**
    * Flags which indicate if the binning factors are provided and hence
    * should be set during startup
    */
-  bool binning_x_given_;
-  bool binning_y_given_;
+    bool binning_x_given_;
+    bool binning_y_given_;
 
-  bool image_encoding_given_;
+    bool image_encoding_given_;
 
-  /**
+    /**
    * Factor that describes the image downsampling to speed up the exposure
    * search to find the desired brightness.
    * The smallest window height is img_rows/downsampling_factor
    */
-  int downsampling_factor_exp_search_;
+    int downsampling_factor_exp_search_;
 
-  // #######################################################################
-  // ###################### Image Intensity Settings  ######################
-  // #######################################################################
-  // The following settings do *NOT* have to be set. Each camera has default
-  // values which provide an automatic image adjustment
-  // If one would like to adjust image brightness, it is not
-  // #######################################################################
+    // #######################################################################
+    // ###################### Image Intensity Settings  ######################
+    // #######################################################################
+    // The following settings do *NOT* have to be set. Each camera has default
+    // values which provide an automatic image adjustment
+    // If one would like to adjust image brightness, it is not
+    // #######################################################################
 
-  /**
+    /**
    * The exposure time in microseconds to be set after opening the camera.
    */
-  double exposure_;
+    double exposure_;
 
-  /**
+    /**
    * Flag which indicates if the exposure time is provided and hence should
    * be set during startup
    */
-  bool exposure_given_;
+    bool exposure_given_;
 
-  /**
+    /**
    * The target gain in percent of the maximal value the camera supports
    * For USB-Cameras, the gain is in dB, for GigE-Cameras it is given in so
    * called 'device specific units'.
    */
-  double gain_;
+    double gain_;
 
-  /**
+    /**
    * Flag which indicates if the gain value is provided and hence should be
    * set during startup
    */
-  bool gain_given_;
+    bool gain_given_;
 
-  /**
+    /**
    * Gamma correction of pixel intensity.
    * Adjusts the brightness of the pixel values output by the camera's sensor
    * to account for a non-linearity in the human perception of brightness or
    * of the display system (such as CRT).
    */
-  double gamma_;
+    double gamma_;
 
-  /**
+    /**
    * Flag which indicates if the gamma correction value is provided and
    * hence should be set during startup
    */
-  bool gamma_given_;
+    bool gamma_given_;
 
-  /**
+    /**
    * The average intensity value of the images. It depends on the exposure
    * time as well as the gain setting. If 'exposure' is provided, the
    * interface will try to reach the desired brightness by only varying the
@@ -200,15 +200,15 @@ public:
    * given, it is not possible to reach the brightness, because both are
    * assumed to be fix.
    */
-  int brightness_;
+    int brightness_;
 
-  /**
+    /**
    * Flag which indicates if the average brightness is provided and hence
    * should be set during startup
    */
-  bool brightness_given_;
+    bool brightness_given_;
 
-  /**
+    /**
    * Only relevant, if 'brightness' is set as ros-parameter:
    * The brightness_continuous flag controls the auto brightness function.
    * If it is set to false, the brightness will only be reached once.
@@ -218,8 +218,8 @@ public:
    * values in the possible auto range of the arena API which is
    * e.g. [50 - 205] for acA2500-14um and acA1920-40gm
    */
-  bool brightness_continuous_;
-  /**
+    bool brightness_continuous_;
+    /**
    * Only relevant, if 'brightness' is given as ros-parameter:
    * If the camera should try to reach and / or keep the brightness, hence
    * adapting to changing light conditions, at least one of the following
@@ -230,119 +230,148 @@ public:
    * The gain_auto flag indicates, that the desired brightness will be
    * reached by adapting the gain.
    */
-  bool exposure_auto_;
-  bool gain_auto_;
-  // #######################################################################
+    bool exposure_auto_;
+    bool gain_auto_;
+    // #######################################################################
 
-  /**
+    /**
    * The timeout while searching the exposure which is connected to the
    * desired brightness. For slow system this has to be increased.
    */
-  double exposure_search_timeout_;
+    double exposure_search_timeout_;
 
-  /**
+    /**
    * The exposure search can be limited with an upper bound. This is to
    * prevent very high exposure times and resulting timeouts.
    * A typical value for this upper bound is ~2000000us.
    */
-  double auto_exp_upper_lim_;
+    double auto_exp_upper_lim_;
 
-  /**
+    /**
    * The MTU size. Only used for GigE cameras.
    * To prevent lost frames the camera has to be configured
    * with the MTU size the network card supports. A value greater 3000
    * should be good (1500 for RaspberryPI)
    */
-  int mtu_size_;
+    int mtu_size_;
 
-  /**
+    /**
    * The inter-package delay in ticks. Only used for GigE cameras.
    * To prevent lost frames it should be greater 0.
    * For most of GigE-Cameras, a value of 1000 is reasonable.
    * For GigE-Cameras used on a RaspberryPI this value should be set to 11772
    */
-  int inter_pkg_delay_;
+    int inter_pkg_delay_;
 
-  /**
+    /**
    Shutter mode
   */
-  SHUTTER_MODE shutter_mode_;
+    SHUTTER_MODE shutter_mode_;
 
-  /**
+    /**
    * Flag that indicates if the camera has been calibrated and the intrinsic
    * calibration matrices are available
    */
-  bool has_intrinsic_calib_;
+    bool has_intrinsic_calib_;
 
-  /**
+    /**
    * Flag that indicates if the camera has a flash connected which should be on on exposure
    * Only supported for GigE cameras. Default: false
    */
-  bool auto_flash_;
-  /**
+    bool auto_flash_;
+    /**
    * Flag that indicates if the camera, when using auto_flash == true, a flash connected on line 2 which should be on on
    * exposure
    * Only supported for GigE cameras. Default: true
    */
-  bool auto_flash_line_2_;
-  /**
+    bool auto_flash_line_2_;
+    /**
    * Flag that indicates if the camera has, when using auto_flash == true,  a flash connected on line 3 which should be
    * on on exposure
    * Only supported for GigE cameras. Default: true
    */
-  bool auto_flash_line_3_;
+    bool auto_flash_line_3_;
 
-protected:
-  /**
+    //crop param
+    int width_;
+    int height_;
+
+    // AOI param
+    bool aoi_enable_;
+    int aoi_width_;
+    int aoi_height_;
+    int aoi_offsetX_;
+    int aoi_offsetY_;
+
+    // Exposure param
+    bool exposure_auto_limit_auto_;
+    double exposure_auto_lower_limit_;
+    double exposure_auto_upper_limit_;
+    std::string exposure_auto_algorithm_;
+    double exposure_auto_damping_;
+    int exposure_auto_damping_raw_;
+
+    // HDR param
+    std::string hdr_output_;
+    bool hdr_tuning_enable_;
+    int hdr_tuning_channel_selector_;
+    double hdr_channel_exposure_time_;
+    double hdr_channel_analog_gain_;
+
+    // Acquisition Frame rate param
+    bool acquisition_frame_rate_enable_;
+    double acquisition_frame_rate_;
+
+  protected:
+    /**
    * Validates the parameter set found on the ros parameter server.
    * If invalid parameters can be detected, the interface will reset them
    * to the default values.
    * @param nh the ros::NodeHandle to use
    */
-  void validateParameterSet(const ros::NodeHandle& nh);
+    void validateParameterSet(const ros::NodeHandle &nh);
 
-  /**
+    /**
    * The tf frame under which the images were published
    */
-  std::string camera_frame_;
+    std::string camera_frame_;
 
-  /**
+    /**
    * The DeviceUserID of the camera. If empty, the first camera found in the
    * device list will be used
    */
-  std::string device_user_id_;
+    std::string device_user_id_;
 
-  /**
+    /**
    * The desired publisher frame rate if listening to the topics.
    * This parameter can only be set once at startup
    * Calling the GrabImages-Action can result in a higher framerate
    */
-  double frame_rate_;
+    double frame_rate_;
 
-  /**
+    /**
    * The CameraInfo URL (Uniform Resource Locator) where the optional
    * intrinsic camera calibration parameters are stored. This URL string will
    * be parsed from the CameraInfoManager:
    * http://wiki.ros.org/camera_info_manager
    */
-  std::string camera_info_url_;
+    std::string camera_info_url_;
 
-  /**
+    /**
    * The encoding of the pixels -- channel meaning, ordering, size taken
    * from the list of strings in include/sensor_msgs/image_encodings.h
    * The supported encodings are 'mono8', 'bgr8', 'rgb8', 'bayer_bggr8',
    * 'bayer_gbrg8', 'bayer_rggb8' and 'yuv422'
    */
-  std::string image_encoding_;
+    std::string image_encoding_;
 
-  bool ptp_enable_;
+    bool ptp_enable_;
 
-  std::string trigger_mode_;
-  std::string trigger_source_;
-  std::string trigger_selector_;
+    std::string trigger_mode_;
+    std::string trigger_source_;
+    std::string trigger_selector_;
+  };
 
-};
+} // namespace arena_camera
 
-}  // namespace arena_camera
-
-#endif  // ARENA_CAMERA_ARENA_CAMERA_PARAMETER_H
+#endif // ARENA_CAMERA_ARENA_CAMERA_PARAMETER_H
