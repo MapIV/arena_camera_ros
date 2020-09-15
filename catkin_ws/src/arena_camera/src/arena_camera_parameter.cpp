@@ -280,6 +280,8 @@ namespace arena_camera
     nh.getParam("hdr_tuning_channel_selector", hdr_tuning_channel_selector_);
     nh.getParam("hdr_channel_exposure_time", hdr_channel_exposure_time_);
     nh.getParam("hdr_channel_analog_gain", hdr_channel_analog_gain_);
+    nh.getParam("hdr_digital_clamping_enable", hdr_digital_clamping_enable_);
+    nh.getParam("hdr_image_enhancement_enable",hdr_image_enhancement_enable_);
 
     nh.getParam("acquisition_frame_rate_enable", acquisition_frame_rate_enable_);
     nh.getParam("acquisition_frame_rate", acquisition_frame_rate_);

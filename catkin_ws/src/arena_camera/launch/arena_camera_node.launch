@@ -12,4 +12,6 @@
           respawn="$(arg respawn)" launch-prefix="$(arg launch_prefix)">
         <rosparam command="load" file="$(arg config_file)" />
     </node>
+    <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" ns="arena_camera_node">
+    </node>
 </launch>

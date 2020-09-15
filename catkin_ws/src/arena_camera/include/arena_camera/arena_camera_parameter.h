@@ -317,6 +317,8 @@ namespace arena_camera
     int hdr_tuning_channel_selector_;
     double hdr_channel_exposure_time_;
     double hdr_channel_analog_gain_;
+    bool hdr_digital_clamping_enable_;
+    bool hdr_image_enhancement_enable_;
 
     // Acquisition Frame rate param
     bool acquisition_frame_rate_enable_;

@@ -384,6 +384,8 @@ namespace arena_camera
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "HDROutput", arena_camera_parameter_set_.hdr_output_.c_str());
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", arena_camera_parameter_set_.hdr_tuning_enable_);
       Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_);
+      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRDigitalClampingEnable", arena_camera_parameter_set_.hdr_digital_clamping_enable_);
+      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRImageEnhancementEnable", arena_camera_parameter_set_.hdr_image_enhancement_enable_);
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
         Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_);
@@ -391,9 +393,9 @@ namespace arena_camera
       }
 
       // Acquisition Frame rate param
+      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "AcquisitionFrameRateEnable", arena_camera_parameter_set_.acquisition_frame_rate_enable_);
       if (arena_camera_parameter_set_.acquisition_frame_rate_enable_)
       {
-        Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "AcquisitionFrameRateEnable", arena_camera_parameter_set_.acquisition_frame_rate_enable_);
         Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "AcquisitionFrameRate", arena_camera_parameter_set_.acquisition_frame_rate_);
       }
 

@@ -59,7 +59,7 @@ frame_rate: 20 #trigger_mode: "On" = 0
 #  try to reach the desired brightness by only varying the exposure time. If
 #  gain AND exposure are given, it is not possible to reach the brightness,
 #  because both are assumed to be fix.
-brightness: 200
+brightness: 255 #(min:0 max:255)
 #  Only relevant, if 'brightness' is set:
 #  The brightness_continuous flag controls the auto brightness function.
 #  If it is set to false, the brightness will only be reached once.
@@ -108,31 +108,33 @@ trigger_source: "Software"
 trigger_selector: "FrameStart"
 
 # crop size param
-width: 1920
-height: 1080
+width: 1920 # (min:4 max:2880)
+height: 1080 # (min:2 max:1860)
 
 # AOI param
-aoi_enable: false #true or false
-aoi_width: 1000 #TODO
-aoi_height: 1000 #TODO
-aoi_offsetX: 1 #TODO
-aoi_offsetY: 2 #TODO
+aoi_enable: false #(true or false)
+aoi_width: 1920 # (min:1 max:1920)
+aoi_height: 1080 # (min:1 max:1080)
+aoi_offsetX: 0 # (min:4 max:2880)
+aoi_offsetY: 0 # (min:4 max:2880)
 
 # Exposure param
-exposure_auto_limit_auto: false # true or false
-exposure_auto_lower_limit: 86.128 # min:86.128[us] Can be changed when exposure_auto_limit_auto is false.
-exposure_auto_upper_limit: 40244.4 # max:40244.4[us] Can be changed when exposure_auto_limit_auto is false.
-exposure_auto_algorithm: "Mean" # Mean or Median
-exposure_auto_damping: 0.390625 # min:0.390625[%] max:99.609[%]
-exposure_auto_damping_raw: 1 # min:1 max:255
+exposure_auto_limit_auto: true # (true or false)
+exposure_auto_lower_limit: 86.128 # (min:86.128[us] max:40244.488[us]) Can be changed when exposure_auto_limit_auto is false.
+exposure_auto_upper_limit: 40244.488 # (min:86.128[us] max:40244.488[us]) Can be changed when exposure_auto_limit_auto is false.
+exposure_auto_algorithm: "Mean" # (Mean or Median)
+exposure_auto_damping: 0.390625 # (min:0.390625[%] max:99.609[%])
+exposure_auto_damping_raw: 1 # (min:1 max:255)
 
 # HDR param
-hdr_output: "HDR" # HDR or Channel 0 or Channel 1 or Channel 2 or Channel 3
-hdr_tuning_enable: false # true or false Can be changed when exposure_auto is false.
-hdr_tuning_channel_selector: 0 # 0 or 1 or 2 or 3
-hdr_channel_exposure_time: 86.1280000 # min:86.1280000 max:40244.488000
-hdr_channel_analog_gain: 0.000000 # min:0.000000 max:30.000000
+hdr_output: "HDR" # (HDR or Channel 0 or Channel 1 or Channel 2 or Channel 3)
+hdr_tuning_enable: false # (true or false) Can be changed when exposure_auto is false.
+hdr_tuning_channel_selector: 0 # (0 or 1 or 2 or 3)
+hdr_channel_exposure_time: 86.1280000 # (min:86.1280000[us] max:40244.488000[us])
+hdr_channel_analog_gain: 0.000000 # (min:0.000000[dB] max:30.000000[dB])
+hdr_digital_clamping_enable: true #(true or false)
+hdr_image_enhancement_enable: true #(true or false)
 
 # Acquisition Frame rate param
 acquisition_frame_rate_enable: false # true or false
-acquisition_frame_rate: 20 #[hz]
+acquisition_frame_rate: 20 #[hz] Frame rate limit Can be changed when acquisition_frame_rate_enable is true.
