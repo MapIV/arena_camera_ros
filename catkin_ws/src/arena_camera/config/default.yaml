@@ -101,10 +101,12 @@ gain_auto: true
 #  For cameras used on a RaspberryPI this value should be set to 11772.
 # gige:
 #  inter_pkg_delay: 1000
+
+## For LUCID TRI054S-CC ##
+
 ptp_enable: true
-# GPIO Red Line1,Brown Line2,Orange Line3,Purple Line4,Black Line5,Blue Line6,Yellow Line7,Green Line8
-trigger_mode: "Off"
-trigger_source: "Software"
+trigger_mode: "Off" #(On or Off)
+trigger_source: "Software" #(Software or GPIO Red Line1,Brown Line2,Orange Line3,Purple Line4,Black Line5,Blue Line6,Yellow Line7,Green Line8)
 trigger_selector: "FrameStart"
 
 # crop size param
