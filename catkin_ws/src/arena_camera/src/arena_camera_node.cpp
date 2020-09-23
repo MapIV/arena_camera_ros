@@ -365,6 +365,8 @@ namespace arena_camera
 
       // brightness Set param
       Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "TargetBrightness", arena_camera_parameter_set_.brightness_);
+      int check_target_brightness = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"TargetBrightness");
+      //ROS_ERROR("TargetBrightness %d", check_target_brightness);
 
       // crop size (width height)
       Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "Width", arena_camera_parameter_set_.width_);
@@ -372,6 +374,8 @@ namespace arena_camera
 
       // AOI param
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "AutoExposureAOIEnable", arena_camera_parameter_set_.aoi_enable_);
+      bool check_aoi_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"AutoExposureAOIEnable");
+      //ROS_ERROR("AutoExposureAOIEnable %d" ,check_aoi_enable);
       if (arena_camera_parameter_set_.aoi_enable_)
       {
         Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "AutoExposureAOIWidth", arena_camera_parameter_set_.aoi_width_);
@@ -382,14 +386,31 @@ namespace arena_camera
 
       // HDR param
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "HDROutput", arena_camera_parameter_set_.hdr_output_.c_str());
+      std::string check_hdr_output = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),  "HDROutput").c_str();
+      //ROS_ERROR("HDROutput %s", check_hdr_output.c_str());
+
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", arena_camera_parameter_set_.hdr_tuning_enable_);
+      bool check_hdr_turning_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRTuningEnable");
+      //ROS_ERROR("HDRTuningEnable %d", check_hdr_turning_enable );
+
       Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_);
+      int hdr_tuning_channelselector = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"HDRTuningChannelSelector");
+      //ROS_ERROR("HDRTuningChannelSelector %d", hdr_tuning_channelselector);
+
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRDigitalClampingEnable", arena_camera_parameter_set_.hdr_digital_clamping_enable_);
+      bool hdr_digital_clamping_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRDigitalClampingEnable");
+      //ROS_ERROR("HDRDigitalClampingEnable %d", hdr_digital_clamping_enable);
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRImageEnhancementEnable", arena_camera_parameter_set_.hdr_image_enhancement_enable_);
+      bool hdr_image_enhancement_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRImageEnhancementEnable");
+      //ROS_ERROR("HDRImageEnhancementEnable %d",hdr_image_enhancement_enable);
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
         Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_);
+        double hdr_channel_exposure_time = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelExposureTime");
+        //ROS_ERROR("HDRChannelExposureTime %lf",hdr_channel_exposure_time);
         Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelAnalogGain", arena_camera_parameter_set_.hdr_channel_analog_gain_);
+        double hdr_channel_analog_gain = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelAnalogGain");
+        //ROS_ERROR("HDRChannelAnalogGain %lf",hdr_channel_analog_gain);
       }
 
       // Acquisition Frame rate param
@@ -464,6 +485,7 @@ namespace arena_camera
                           << "be adapted, so that the binning_y value in this msg remains 1");
         }
       }
+      
 
       if (arena_camera_parameter_set_.exposure_given_)
       {
@@ -478,6 +500,11 @@ namespace arena_camera
       {
         Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto", "Continuous");
         Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto", "Continuous");
+
+        std::string check_gainauto = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str();
+        std::string check_exposureauto = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str();
+        //ROS_ERROR("GainAuto %s",check_gainauto.c_str());
+        //ROS_ERROR("ExposureAuto %s", check_exposureauto.c_str());
         ROS_INFO_STREAM("Settings Exposure to auto");
         ROS_INFO_STREAM("Settings Gain to auto");
       }
@@ -486,10 +513,14 @@ namespace arena_camera
       if (arena_camera_parameter_set_.exposure_auto_limit_auto_)
       {
         Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAutoLimitAuto", "Continuous");
+        std::string exposure_auto_limitauto = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),"ExposureAutoLimitAuto").c_str();
+        //ROS_ERROR("ExposureAutoLimitAuto %s" ,exposure_auto_limitauto.c_str());
       }
       else
       {
         Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAutoLimitAuto", "Off");
+        std::string exposure_autolimitauto = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),"ExposureAutoLimitAuto").c_str();
+        //ROS_ERROR("ExposureAutoLimitAuto %s",exposure_autolimitauto.c_str());
         Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "ExposureAutoLowerLimit", arena_camera_parameter_set_.exposure_auto_lower_limit_);
         Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "ExposureAutoUpperLimit", arena_camera_parameter_set_.exposure_auto_upper_limit_);
       }
@@ -744,8 +775,13 @@ namespace arena_camera
 
       img_raw_msg_.data.resize(img_raw_msg_.height * img_raw_msg_.step);
       memcpy(&img_raw_msg_.data[0], pImage_->GetData(), img_raw_msg_.height * img_raw_msg_.step);
-
+/*
       if (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave")
+      {
+        ptpReady = true;
+      }
+*/
+      if (abs((pImage_->GetTimestampNs()/1000000000)-ros::Time::now().toSec()) < 1)
       {
         ptpReady = true;
       }
@@ -975,7 +1011,13 @@ namespace arena_camera
       // imagePixelDepth already contains the number of channels
       img_raw_msg_.step = img_raw_msg_.width * (pImage_->GetBitsPerPixel() / 8);
 
+/*
       if (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave")
+      {
+        ptpReady = true;
+      }
+*/
+      if (abs((pImage_->GetTimestampNs()/1000000000)-ros::Time::now().toSec()) < 1)
       {
         ptpReady = true;
       }
