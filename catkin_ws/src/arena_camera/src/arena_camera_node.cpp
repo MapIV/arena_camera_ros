@@ -485,7 +485,7 @@ namespace arena_camera
                           << "be adapted, so that the binning_y value in this msg remains 1");
         }
       }
-      
+
 
       if (arena_camera_parameter_set_.exposure_given_)
       {
@@ -781,12 +781,17 @@ namespace arena_camera
         ptpReady = true;
       }
 */
-      if (abs((pImage_->GetTimestampNs()/1000000000)-ros::Time::now().toSec()) < 1)
+
+      if (ptpReady = false)
       {
-        ptpReady = true;
+        if (abs((pImage_->GetTimestampNs()/1000000000)-ros::Time::now().toSec()) < 1)
+        {
+          ptpReady = true;
+        }
       }
 
-      if (ptpReady == true && (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave" || Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Uncalibrated"))
+      //if (ptpReady == true && (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave" || Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Uncalibrated"))
+      if (ptpReady == true)
       {
         img_raw_msg_.header.stamp.sec = pImage_->GetTimestampNs() / 1000000000;
         img_raw_msg_.header.stamp.nsec = pImage_->GetTimestampNs() % 1000000000;
@@ -1017,12 +1022,16 @@ namespace arena_camera
         ptpReady = true;
       }
 */
-      if (abs((pImage_->GetTimestampNs()/1000000000)-ros::Time::now().toSec()) < 1)
+      if (ptpReady = false)
       {
-        ptpReady = true;
+        if (abs((pImage_->GetTimestampNs()/1000000000)-ros::Time::now().toSec()) < 1)
+        {
+          ptpReady = true;
+        }
       }
 
-      if (ptpReady == true && (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave" || Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Uncalibrated"))
+      //if (ptpReady == true && (Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Slave" || Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "PtpStatus") == "Uncalibrated"))
+      if (ptpReady == true)
       {
         img_raw_msg_.header.stamp.sec = pImage_->GetTimestampNs() / 1000000000;
         img_raw_msg_.header.stamp.nsec = pImage_->GetTimestampNs() % 1000000000;
