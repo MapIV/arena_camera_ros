@@ -359,6 +359,9 @@ namespace arena_camera
     {
       setImageEncoding(arena_camera_parameter_set_.imageEncoding());
 
+      Arena::SetNodeValue<bool>(pDevice_->GetTLStreamNodeMap(),"StreamPacketResendEnable",true);
+      Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "GevSCPD", 23000);
+
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerMode", arena_camera_parameter_set_.triggerMode().c_str());
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerSource", arena_camera_parameter_set_.triggerSource().c_str());
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "TriggerSelector", arena_camera_parameter_set_.triggerSelector().c_str());
