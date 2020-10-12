@@ -277,9 +277,18 @@ namespace arena_camera
 
     nh.getParam("hdr_output", hdr_output_);
     nh.getParam("hdr_tuning_enable", hdr_tuning_enable_);
-    nh.getParam("hdr_tuning_channel_selector", hdr_tuning_channel_selector_);
-    nh.getParam("hdr_channel_exposure_time", hdr_channel_exposure_time_);
-    nh.getParam("hdr_channel_analog_gain", hdr_channel_analog_gain_);
+    nh.getParam("hdr_tuning_channel_selector_0", hdr_tuning_channel_selector_0_);
+    nh.getParam("hdr_tuning_channel_selector_1", hdr_tuning_channel_selector_1_);
+    nh.getParam("hdr_tuning_channel_selector_2", hdr_tuning_channel_selector_2_);
+    nh.getParam("hdr_tuning_channel_selector_3", hdr_tuning_channel_selector_3_);
+    nh.getParam("hdr_channel_exposure_time_0", hdr_channel_exposure_time_0_);
+    nh.getParam("hdr_channel_exposure_time_1", hdr_channel_exposure_time_1_);
+    nh.getParam("hdr_channel_exposure_time_2", hdr_channel_exposure_time_2_);
+    nh.getParam("hdr_channel_exposure_time_3", hdr_channel_exposure_time_3_);
+    nh.getParam("hdr_channel_analog_gain_0", hdr_channel_analog_gain_0_);
+    nh.getParam("hdr_channel_analog_gain_1", hdr_channel_analog_gain_1_);
+    nh.getParam("hdr_channel_analog_gain_2", hdr_channel_analog_gain_2_);
+    nh.getParam("hdr_channel_analog_gain_3", hdr_channel_analog_gain_3_);
     nh.getParam("hdr_digital_clamping_enable", hdr_digital_clamping_enable_);
     nh.getParam("hdr_image_enhancement_enable",hdr_image_enhancement_enable_);
 

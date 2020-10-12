@@ -387,34 +387,7 @@ namespace arena_camera
         Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "AutoExposureAOIOffsetY", arena_camera_parameter_set_.aoi_offsetY_);
       }
 
-      // HDR param
-      Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "HDROutput", arena_camera_parameter_set_.hdr_output_.c_str());
-      std::string check_hdr_output = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),  "HDROutput").c_str();
-      //ROS_ERROR("HDROutput %s", check_hdr_output.c_str());
 
-      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", arena_camera_parameter_set_.hdr_tuning_enable_);
-      bool check_hdr_turning_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRTuningEnable");
-      //ROS_ERROR("HDRTuningEnable %d", check_hdr_turning_enable );
-
-      Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_);
-      int hdr_tuning_channelselector = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"HDRTuningChannelSelector");
-      //ROS_ERROR("HDRTuningChannelSelector %d", hdr_tuning_channelselector);
-
-      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRDigitalClampingEnable", arena_camera_parameter_set_.hdr_digital_clamping_enable_);
-      bool hdr_digital_clamping_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRDigitalClampingEnable");
-      //ROS_ERROR("HDRDigitalClampingEnable %d", hdr_digital_clamping_enable);
-      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRImageEnhancementEnable", arena_camera_parameter_set_.hdr_image_enhancement_enable_);
-      bool hdr_image_enhancement_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRImageEnhancementEnable");
-      //ROS_ERROR("HDRImageEnhancementEnable %d",hdr_image_enhancement_enable);
-      if (arena_camera_parameter_set_.hdr_tuning_enable_)
-      {
-        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_);
-        double hdr_channel_exposure_time = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelExposureTime");
-        //ROS_ERROR("HDRChannelExposureTime %lf",hdr_channel_exposure_time);
-        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelAnalogGain", arena_camera_parameter_set_.hdr_channel_analog_gain_);
-        double hdr_channel_analog_gain = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelAnalogGain");
-        //ROS_ERROR("HDRChannelAnalogGain %lf",hdr_channel_analog_gain);
-      }
 
       // Acquisition Frame rate param
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "AcquisitionFrameRateEnable", arena_camera_parameter_set_.acquisition_frame_rate_enable_);
@@ -501,6 +474,7 @@ namespace arena_camera
       }
       else if (arena_camera_parameter_set_.brightness_given_ && arena_camera_parameter_set_.exposure_auto_)
       {
+        std::cout << "---------------------END---------------------------" << std::endl;
         Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto", "Continuous");
         Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto", "Continuous");
 
@@ -531,6 +505,83 @@ namespace arena_camera
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAutoAlgorithm", arena_camera_parameter_set_.exposure_auto_algorithm_.c_str());
       Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "ExposureAutoDamping", arena_camera_parameter_set_.exposure_auto_damping_);
       Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "ExposureAutoDampingRaw", arena_camera_parameter_set_.exposure_auto_damping_raw_);
+
+
+      // HDR param
+      Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "HDROutput", arena_camera_parameter_set_.hdr_output_.c_str());
+      std::string check_hdr_output = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),  "HDROutput").c_str();
+      //ROS_ERROR("HDROutput %s", check_hdr_output.c_str());
+
+      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", arena_camera_parameter_set_.hdr_tuning_enable_);
+      bool check_hdr_turning_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRTuningEnable");
+      //ROS_ERROR("HDRTuningEnable %d", check_hdr_turning_enable );
+
+      //Channel 0
+      Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_0_);
+      int hdr_tuning_channel_selector_0 = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"HDRTuningChannelSelector");
+      //ROS_ERROR("HDRTuningChannelSelector %d", hdr_tuning_channelselector);
+
+      if (arena_camera_parameter_set_.hdr_tuning_enable_)
+      {
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_0_);
+        double hdr_channel_exposure_time_0_ = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelExposureTime");
+        //ROS_ERROR("HDRChannelExposureTime %lf",hdr_channel_exposure_time);
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelAnalogGain", arena_camera_parameter_set_.hdr_channel_analog_gain_0_);
+        double hdr_channel_analog_gain_0_ = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelAnalogGain");
+        //ROS_ERROR("HDRChannelAnalogGain %lf",hdr_channel_analog_gain);
+      }
+
+      //Channel 1
+      Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_1_);
+      int hdr_tuning_channel_selector_1 = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"HDRTuningChannelSelector");
+      //ROS_ERROR("HDRTuningChannelSelector %d", hdr_tuning_channelselector);
+
+      if (arena_camera_parameter_set_.hdr_tuning_enable_)
+      {
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_1_);
+        double hdr_channel_exposure_time_1 = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelExposureTime");
+        //ROS_ERROR("HDRChannelExposureTime %lf",hdr_channel_exposure_time);
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelAnalogGain", arena_camera_parameter_set_.hdr_channel_analog_gain_1_);
+        double hdr_channel_analog_gain_1 = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelAnalogGain");
+        //ROS_ERROR("HDRChannelAnalogGain %lf",hdr_channel_analog_gain);
+      }
+
+      //Channel 2
+      Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_2_);
+      int hdr_tuning_channel_selector_2 = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"HDRTuningChannelSelector");
+      //ROS_ERROR("HDRTuningChannelSelector %d", hdr_tuning_channelselector);
+
+      if (arena_camera_parameter_set_.hdr_tuning_enable_)
+      {
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_2_);
+        double hdr_channel_exposure_time_2 = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelExposureTime");
+        //ROS_ERROR("HDRChannelExposureTime %lf",hdr_channel_exposure_time);
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelAnalogGain", arena_camera_parameter_set_.hdr_channel_analog_gain_2_);
+        double hdr_channel_analog_gain_2 = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelAnalogGain");
+        //ROS_ERROR("HDRChannelAnalogGain %lf",hdr_channel_analog_gain);
+      }
+
+      //Channel 3
+      Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_3_);
+      int hdr_tuning_channel_selector_3 = Arena::GetNodeValue<int64_t>(pDevice_->GetNodeMap(),"HDRTuningChannelSelector");
+      //ROS_ERROR("HDRTuningChannelSelector %d", hdr_tuning_channelselector);
+
+      if (arena_camera_parameter_set_.hdr_tuning_enable_)
+      {
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelExposureTime", arena_camera_parameter_set_.hdr_channel_exposure_time_3_);
+        double hdr_channel_exposure_time_3 = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelExposureTime");
+        //ROS_ERROR("HDRChannelExposureTime %lf",hdr_channel_exposure_time);
+        Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "HDRChannelAnalogGain", arena_camera_parameter_set_.hdr_channel_analog_gain_3_);
+        double hdr_channel_analog_gain_3 = Arena::GetNodeValue<double>(pDevice_->GetNodeMap(),"HDRChannelAnalogGain");
+        //ROS_ERROR("HDRChannelAnalogGain %lf",hdr_channel_analog_gain);
+      }
+
+      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRDigitalClampingEnable", arena_camera_parameter_set_.hdr_digital_clamping_enable_);
+      bool hdr_digital_clamping_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRDigitalClampingEnable");
+      //ROS_ERROR("HDRDigitalClampingEnable %d", hdr_digital_clamping_enable);
+      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRImageEnhancementEnable", arena_camera_parameter_set_.hdr_image_enhancement_enable_);
+      bool hdr_image_enhancement_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRImageEnhancementEnable");
+      //ROS_ERROR("HDRImageEnhancementEnable %d",hdr_image_enhancement_enable);
 
       // if (arena_camera_parameter_set_.image_encoding_given_)
       // {

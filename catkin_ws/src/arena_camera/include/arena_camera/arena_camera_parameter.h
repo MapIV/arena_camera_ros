@@ -314,9 +314,18 @@ namespace arena_camera
     // HDR param
     std::string hdr_output_;
     bool hdr_tuning_enable_;
-    int hdr_tuning_channel_selector_;
-    double hdr_channel_exposure_time_;
-    double hdr_channel_analog_gain_;
+    int hdr_tuning_channel_selector_0_;
+    int hdr_tuning_channel_selector_1_;
+    int hdr_tuning_channel_selector_2_;
+    int hdr_tuning_channel_selector_3_;
+    double hdr_channel_exposure_time_0_;
+    double hdr_channel_exposure_time_1_;
+    double hdr_channel_exposure_time_2_;
+    double hdr_channel_exposure_time_3_;
+    double hdr_channel_analog_gain_0_;
+    double hdr_channel_analog_gain_1_;
+    double hdr_channel_analog_gain_2_;
+    double hdr_channel_analog_gain_3_;
     bool hdr_digital_clamping_enable_;
     bool hdr_image_enhancement_enable_;
 
