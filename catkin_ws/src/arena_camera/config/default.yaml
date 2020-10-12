@@ -130,7 +130,7 @@ exposure_auto_damping_raw: 230 # (min:1 max:255)
 
 # HDR param
 hdr_output: "HDR" # (HDR or HDRChannel0 or HDRChannel1 or HDRChannel2 or HDRChannel3)
-hdr_tuning_enable: true # (true or false) Can be changed when exposure_auto is false.
+hdr_tuning_enable: false # (true or false) Can be changed when exposure_auto is false.
 hdr_tuning_channel_selector_0: 0
 hdr_tuning_channel_selector_1: 1
 hdr_tuning_channel_selector_2: 2
