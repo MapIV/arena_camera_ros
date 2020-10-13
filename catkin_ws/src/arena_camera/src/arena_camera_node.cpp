@@ -481,8 +481,8 @@ namespace arena_camera
 
         std::string check_gainauto = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str();
         std::string check_exposureauto = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str();
-        ROS_ERROR("GainAuto %s",check_gainauto.c_str());
-        ROS_ERROR("ExposureAuto %s", check_exposureauto.c_str());
+        //ROS_ERROR("GainAuto %s",check_gainauto.c_str());
+        //ROS_ERROR("ExposureAuto %s", check_exposureauto.c_str());
         ROS_INFO_STREAM("Settings Exposure to auto");
         ROS_INFO_STREAM("Settings Gain to auto");
       }
@@ -538,33 +538,22 @@ namespace arena_camera
           ROS_INFO_STREAM("Setting gamma to " << arena_camera_parameter_set_.gamma_ << ", reached: " << reached_gamma);
         }
       }
-     ROS_ERROR("A GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str());
-     ROS_ERROR("ExposureAuto %s", Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str());
+
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetTLStreamNodeMap(), "StreamBufferHandlingMode", "NewestOnly");
 
       pDevice_->StartStream();
       bool isTriggerArmed = false;
 
-ROS_ERROR("B GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str());
-     ROS_ERROR("ExposureAuto %s", Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str());
-
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "PtpEnable", arena_camera_parameter_set_.ptpEnable());
       
-ROS_ERROR("C GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str());
-     ROS_ERROR("ExposureAuto %s", Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str());
-
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
-{
-      // HDR param
-      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", arena_camera_parameter_set_.hdr_tuning_enable_);
-      
-}
+      {
+        // HDR param
+        Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", arena_camera_parameter_set_.hdr_tuning_enable_);
+      }
 
-ROS_ERROR("HDRTuningEnable %d", Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRTuningEnable" ));
-
-ROS_ERROR("D GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str());
-     ROS_ERROR("ExposureAuto %s", Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str());
- 
+      ROS_ERROR("HDRTuningEnable %d", Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRTuningEnable" ));
+    
       //Channel 0
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
@@ -580,8 +569,6 @@ ROS_ERROR("D GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNo
       }
 
       //Channel 1
-    
-
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
         Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_1_);
@@ -596,7 +583,6 @@ ROS_ERROR("D GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNo
       }
 
       //Channel 2
-    
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
         Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_2_);
@@ -611,8 +597,6 @@ ROS_ERROR("D GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNo
       }
 
       //Channel 3
-   
-
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
         Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "HDRTuningChannelSelector", arena_camera_parameter_set_.hdr_tuning_channel_selector_3_);
@@ -841,9 +825,6 @@ ROS_ERROR("D GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNo
     */
 
       pImage_ = pDevice_->GetImage(5000);
-
-     ROS_ERROR("GainAuto %s",Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "GainAuto").c_str());
-     ROS_ERROR("ExposureAuto %s", Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAuto").c_str());
 
       if(pImage_ ->IsIncomplete())
       {
