@@ -357,6 +357,18 @@ namespace arena_camera
   {
     try
     {
+      //Balance White
+      std::cout << "----------------------" << std::endl;
+      std::cout << "BalanceWhiteAuto before" <<Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),"BalanceWhiteAuto").c_str() << std::endl;
+      if(arena_camera_parameter_set_.balance_white_auto_)
+      {
+        Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "BalanceWhiteAuto", "Continuous");
+      }
+      else
+      {
+        Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "BalanceWhiteAuto", "Off");
+      }
+      std::cout << "BalanceWhiteAuto after" <<Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),"BalanceWhiteAuto").c_str() << std::endl;
       setImageEncoding(arena_camera_parameter_set_.imageEncoding());
 
       //Arena::SetNodeValue<bool>(pDevice_->GetTLStreamNodeMap(),"StreamPacketResendEnable",true);

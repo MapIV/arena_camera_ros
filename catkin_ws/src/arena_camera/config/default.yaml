@@ -149,3 +149,6 @@ hdr_image_enhancement_enable: true #(true or false)
 # Acquisition Frame rate param
 acquisition_frame_rate_enable: false # true or false
 acquisition_frame_rate: 20 #[hz] Frame rate limit Can be changed when acquisition_frame_rate_enable is true.
+
+#Balance White param
+balance_white_auto: true

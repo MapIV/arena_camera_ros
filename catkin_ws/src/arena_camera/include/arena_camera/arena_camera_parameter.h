@@ -333,6 +333,9 @@ namespace arena_camera
     bool acquisition_frame_rate_enable_;
     double acquisition_frame_rate_;
 
+    //Balance White
+    bool balance_white_auto_;
+
   protected:
     /**
    * Validates the parameter set found on the ros parameter server.

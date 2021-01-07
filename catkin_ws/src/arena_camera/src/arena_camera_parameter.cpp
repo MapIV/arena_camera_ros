@@ -295,6 +295,8 @@ namespace arena_camera
     nh.getParam("acquisition_frame_rate_enable", acquisition_frame_rate_enable_);
     nh.getParam("acquisition_frame_rate", acquisition_frame_rate_);
 
+    nh.getParam("balance_white_auto", balance_white_auto_);
+
     validateParameterSet(nh);
     return;
   }
