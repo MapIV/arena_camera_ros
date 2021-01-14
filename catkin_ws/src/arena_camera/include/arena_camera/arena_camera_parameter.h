@@ -333,8 +333,12 @@ namespace arena_camera
     bool acquisition_frame_rate_enable_;
     double acquisition_frame_rate_;
 
-    //Balance White
+    // White Balance
     bool balance_white_auto_;
+
+    // Packet Option
+    bool packet_resend_;
+    int packet_delay_;
 
   protected:
     /**

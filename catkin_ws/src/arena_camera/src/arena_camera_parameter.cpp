@@ -297,6 +297,9 @@ namespace arena_camera
 
     nh.getParam("balance_white_auto", balance_white_auto_);
 
+    nh.getParam("packet_resend", packet_resend_);
+    nh.getParam("packet_delay", packet_delay_);
+
     validateParameterSet(nh);
     return;
   }

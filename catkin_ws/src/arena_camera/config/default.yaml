@@ -94,7 +94,7 @@ gain_auto: true
 #  with the MTU size the network card supports. A value greater 3000
 #  should be good (1500 for RaspberryPI)
 # gige:
-#  mtu_size: 3000
+mtu_size: 9000
 #  Only used for GigE cameras.
 #  The inter-package delay in ticks to prevent lost frames.
 #  For most of GigE-Cameras, a value of 1000 is reasonable.
@@ -108,6 +108,10 @@ ptp_enable: true
 trigger_mode: "Off" #(On or Off)
 trigger_source: "Software" #(Software or GPIO Red Line1,Brown Line2,Orange Line3,Purple Line4,Black Line5,Blue Line6,Yellow Line7,Green Line8)
 trigger_selector: "FrameStart"
+
+# Communication options
+packet_resend: false #Retransmission in case of invalid packet
+packet_delay: 0 #5FPS:3000
 
 # crop size param
 width: 2880 # (min:4 max:2880)
@@ -123,7 +127,7 @@ aoi_offsetY: 580 # (min:4 max:2880)
 # Exposure param
 exposure_auto_limit_auto: false # (true or false)
 exposure_auto_lower_limit: 86.128 # (min:86.128[us] max:40244.488[us]) Can be changed when exposure_auto_limit_auto is false.
-exposure_auto_upper_limit: 10000 # (min:86.128[us] max:40244.488[us]) Can be changed when exposure_auto_limit_auto is false.
+exposure_auto_upper_limit: 40244.488 # (min:86.128[us] max:40244.488[us]) Can be changed when exposure_auto_limit_auto is false.
 exposure_auto_algorithm: "Mean" # (Mean or Median)
 exposure_auto_damping: 89.8 # (min:0.390625[%] max:99.609[%])
 exposure_auto_damping_raw: 230 # (min:1 max:255)
@@ -150,5 +154,5 @@ hdr_image_enhancement_enable: true #(true or false)
 acquisition_frame_rate_enable: false # true or false
 acquisition_frame_rate: 20 #[hz] Frame rate limit Can be changed when acquisition_frame_rate_enable is true.
 
-#Balance White param
+# White Balance param
 balance_white_auto: true
