@@ -403,7 +403,7 @@ namespace arena_camera
         Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "AutoExposureAOIOffsetY", arena_camera_parameter_set_.aoi_offsetY_);
       }
       
-      Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", false);
+      //Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRTuningEnable", false);
       //bool check_hdr_turning_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRTuningEnable");
       //ROS_INFO("HDRTuningEnable %d", check_hdr_turning_enable );
 
@@ -502,7 +502,7 @@ namespace arena_camera
         ROS_INFO_STREAM("Settings Exposure to auto");
         ROS_INFO_STREAM("Settings Gain to auto");
       }
-
+/*
       // Exposure param
       if (arena_camera_parameter_set_.exposure_auto_limit_auto_)
       {
@@ -522,10 +522,10 @@ namespace arena_camera
       Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "ExposureAutoAlgorithm", arena_camera_parameter_set_.exposure_auto_algorithm_.c_str());
       Arena::SetNodeValue<double>(pDevice_->GetNodeMap(), "ExposureAutoDamping", arena_camera_parameter_set_.exposure_auto_damping_);
       Arena::SetNodeValue<int64_t>(pDevice_->GetNodeMap(), "ExposureAutoDampingRaw", arena_camera_parameter_set_.exposure_auto_damping_raw_);
-      
+      */
       //HDR output
-      Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "HDROutput", arena_camera_parameter_set_.hdr_output_.c_str());
-      std::string check_hdr_output = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),  "HDROutput").c_str();
+      //Arena::SetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(), "HDROutput", arena_camera_parameter_set_.hdr_output_.c_str());
+      //std::string check_hdr_output = Arena::GetNodeValue<GenICam::gcstring>(pDevice_->GetNodeMap(),  "HDROutput").c_str();
       //ROS_INFO("HDROutput %s", check_hdr_output.c_str());
       // if (arena_camera_parameter_set_.image_encoding_given_)
       // {
@@ -561,7 +561,7 @@ namespace arena_camera
       bool isTriggerArmed = false;
 
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "PtpEnable", arena_camera_parameter_set_.ptpEnable());
-      
+      /*
       if (arena_camera_parameter_set_.hdr_tuning_enable_)
       {
         // HDR param
@@ -632,6 +632,7 @@ namespace arena_camera
       Arena::SetNodeValue<bool>(pDevice_->GetNodeMap(), "HDRImageEnhancementEnable", arena_camera_parameter_set_.hdr_image_enhancement_enable_);
       bool hdr_image_enhancement_enable = Arena::GetNodeValue<bool>(pDevice_->GetNodeMap(),"HDRImageEnhancementEnable");
       //ROS_INFO("HDRImageEnhancementEnable %d",hdr_image_enhancement_enable);
+*/
 
       /*
     if (GenApi::IsWritable(pTriggerMode))
